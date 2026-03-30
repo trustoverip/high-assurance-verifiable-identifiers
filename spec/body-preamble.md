@@ -1,3 +1,33 @@
+**Decentralized Identifier (DID):** As defined in [DID-CORE].
+
+**DID controller:** As defined in [DID-CORE].
+
+**DID document:** As defined in [DID-CORE].
+
+**X.509 Certificate:** As defined in [RFC 5280].
+
+**DNS Domain Name:** A globally unique and hierarchical identifier assigned through the Domain Name System, as defined in [RFC 1035].
+
+**DNSSEC:** DNS Security Extensions, as defined in [RFC 4033].
+
+**TLSA Record:** A DNS record type used by the DANE protocol to associate a domain name with a specific TLS certificate or public key, as defined in [RFC 6698].
+
+**DANE (DNS-Based Authentication of Named Entities):** A protocol that allows X.509 certificates or public keys to be bound to domain names using DNSSEC-protected TLSA records, as defined in [RFC 6698].
+
+**Legal Entity Identifier (LEI):** A globally unique identifier for legal persons, defined in ISO 17442 and administered by GLEIF.
+
+**Organizational Identifier:** A broader category of identifiers for legal entities, including LEIs, VAT numbers, company registration numbers, and national business identifiers.
+
+**Verification Method:** As defined in [DID-CORE], a data structure in a DID Document describing a mechanism for proving control of a DID.
+
+**Verifiable Identifier (VID):** A digital identifier whose control can be verified through cryptographic or integrity-protected mechanisms. In this specification, VIDs include DIDs, X.509 certificates, and DNS domain names (when integrity-protected).
+
+**Cross-Endorsement:** A verifiable, bi-directional linkage between identifiers established through explicit mutual references in each identifier's native metadata or record format. Cross-endorsement is the primary bridging mechanism defined in this specification.
+
+**Key Alignment:** A supplementary assurance mechanism in which the same or verifiably linked cryptographic key material is demonstrated across multiple identifiers. Key alignment is OPTIONAL and subject to the normative requirements of [Section 10](#10-key-alignment).
+
+**High Assurance Verifiable Identifier (HAVID):** A composite identity structure formed by linking two or more Verifiable Identifiers through cross-endorsement (and optionally key alignment), enabling strong, cross-system assurance of identity control and integrity.
+
 ## 3. Goals and Motivation
 
 *This section is non-normative.*
