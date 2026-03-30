@@ -1,0 +1,31 @@
+{
+  "name": "havid-specification",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "High Assurance Verifiable Identifiers (HAVID) Specification, built with Spec-Up-T.",
+  "author": "Trust over IP Foundation",
+  "homepage": "https://github.com/trustoverip/high-assurance-verifiable-identifiers#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trustoverip/high-assurance-verifiable-identifiers.git"
+  },
+  "bugs": {
+    "url": "https://github.com/trustoverip/high-assurance-verifiable-identifiers/issues"
+  },
+  "dependencies": {
+    "spec-up-t": "^1.6.7"
+  },
+  "scripts": {
+    "build": "npm run render",
+    "render": "node --no-warnings -e \"require('spec-up-t/index.js')({ nowatch: true })\"",
+    "edit": "node -e \"require('spec-up-t')()\"",
+    "dev": "node -e \"require('spec-up-t')({ dev: true })\"",
+    "collectExternalReferences": "node --no-warnings -e \"require('spec-up-t/src/pipeline/references/collect-external-references.js').collectExternalReferences()\"",
+    "topdf": "node -e \"require('spec-up-t/src/create-pdf.js')\"",
+    "todocx": "node -e \"require('spec-up-t/src/create-docx.js')\"",
+    "freeze": "node -e \"require('spec-up-t/src/freeze-spec-data.js')\"",
+    "references": "node -e \"require('spec-up-t/src/pipeline/references/external-references-service.js')\"",
+    "menu": "bash ./node_modules/spec-up-t/src/install-from-boilerplate/menu.sh"
+  }
+}

@@ -1,0 +1,70 @@
+name: Render and Deploy Spec
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Render specification
+        run: npm run render
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+```
+
+When you commit this file, the workflow will trigger automatically.
+
+---
+
+## Final step: Enable GitHub Pages
+
+After the workflow runs successfully (check the **Actions** tab for a green checkmark — it may take 2–3 minutes):
+
+1. Go to **Settings → Pages** (in the left sidebar under "Code and automation")
+2. Under **"Build and deployment"**, set **Source** to **"Deploy from a branch"**
+3. Select branch **`gh-pages`** and folder **`/ (root)`**
+4. Click **Save**
+
+After another minute or so, your spec will be live at:
+
+**https://trustoverip.github.io/high-assurance-verifiable-identifiers/**
+
+---
+
+## Summary of what you're creating
+
+Here's the final file tree in your repo:
+```
+high-assurance-verifiable-identifiers/
+├── .github/
+│   └── workflows/
+│       └── render-specs.yml
+├── spec/
+│   ├── header.md
+│   ├── terms-and-definitions-intro.md
+│   └── body.md
+├── .gitignore
+├── package.json
+├── specs.json
+└── README.md
