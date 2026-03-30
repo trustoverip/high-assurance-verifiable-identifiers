@@ -6,6 +6,7 @@
       "output_path": "./docs",
       "markdown_paths": [
         "header.md",
+        "body-preamble.md",
         "terms-and-definitions-intro.md",
         "body.md"
       ],
