@@ -15,20 +15,6 @@ open docs/index.html
 
 ## Details
 
-The spec is written using TrustOverIP's [Spec-Up-T Tool](https://github.com/trustoverip/spec-up-t).
+The spec is written using Trust Over IP's [Spec-Up-T Tool](https://github.com/trustoverip/spec-up-t).
 
 To contribute to the spec, submit PRs that modify the `.md` files in the `spec/` folder.
-```
-
-Commit to `main`.
-
----
-
-## File 2: `.gitignore`
-
-Create `.gitignore`:
-```
-node_modules/
-docs/
-.env
-.DS_Store
