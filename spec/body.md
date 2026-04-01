@@ -100,11 +100,17 @@ This section identifies the principal adversaries, attack goals, and mitigations
 
 *This section is non-normative.*
 
-This specification defines a compositional architecture for establishing high-assurance linkages between VID types. The architecture rests on two mechanisms:
+This specification defines a compositional architecture for establishing high-assurance linkages between VID types. 
 
-**Cross-endorsement (primary)** creates explicit, machine-readable, bi-directional references between identifiers. Each identifier points to the other using fields and record types native to its own ecosystem. Cross-endorsement provides discoverability, declared intent, and verifiable integrity.
+![HAVID Architecture Overview](../assets/high-assurance-vid-overview.png)
 
-**Key alignment (supplementary, optional)** provides additional proof of common control by demonstrating possession of the same or verifiably linked key material across systems. Key alignment increases assurance but introduces lifecycle mismatch risk, lowest-common-denominator security reduction, governance role collapse, and increased attack surface. It is OPTIONAL and subject to strict normative requirements.
+*Figure 1: Cross-endorsement and key alignment between the three VID types in a HAVID.*
+
+The architecture rests on two mechanisms:
+
+- **Cross-endorsement (primary)** creates explicit, machine-readable, bi-directional references between identifiers. Each identifier points to the other using fields and record types native to its own ecosystem. Cross-endorsement provides discoverability, declared intent, and verifiable integrity.
+
+- **Key alignment (supplementary, optional)** provides additional proof of common control by demonstrating possession of the same or verifiably linked key material across systems. Key alignment increases assurance but introduces lifecycle mismatch risk, lowest-common-denominator security reduction, governance role collapse, and increased attack surface. It is OPTIONAL and subject to strict normative requirements.
 
 ### 8.1. Relationship to Existing Trust Frameworks
 
