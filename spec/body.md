@@ -102,7 +102,7 @@ This section identifies the principal adversaries, attack goals, and mitigations
 
 This specification defines a compositional architecture for establishing high-assurance linkages between VID types. 
 
-![HAVID Architecture Overview](../assets/high-assurance-vid-overview.png)
+![HAVID Architecture Overview](assets/high-assurance-vid-overview.png)
 
 *Figure 1: Cross-endorsement and key alignment between the three VID types in a HAVID.*
 
