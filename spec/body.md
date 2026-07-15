@@ -1,6 +1,6 @@
 ## 6. Identifier Role Taxonomy
 
-*This section is non-normative.*
+*Sections 6.1–6.4 are non-normative. Sections 6.5 and 6.6 are normative.*
 
 Each identifier type contributes a specific kind of assurance. Cross-endorsements compose these assurances; they do not transfer or replicate them.
 
@@ -40,6 +40,8 @@ Identifier Controllers SHOULD design cross-endorsements that leverage each ident
 
 ### 6.5. did:web and Circular Trust
 
+*This section is normative.*
+
 The `did:web` method resolves DID Documents by fetching them from a web server at a domain encoded in the DID itself. The domain owner controls the DID Document. As a consequence, a cross-endorsement between a `did:web` identifier and its own host domain is **circular**: the DID already depends on the domain for its integrity, so the cross-endorsement does not introduce an independent trust anchor.
 
 Identifier Controllers and Verifiers MUST observe the following:
@@ -51,6 +53,8 @@ Identifier Controllers and Verifiers MUST observe the following:
 **(c)** Verifiers MUST consider the DID method's trust properties when assessing the overall assurance level of a HAVID. A HAVID built entirely on `did:web` and its host domain carries strictly lower assurance than one built on a DID method with independent integrity.
 
 ### 6.6. Cardinality
+
+*This section is normative.*
 
 A single identifier MAY participate in cross-endorsements with multiple identifiers of the same or different types.
 
@@ -324,7 +328,7 @@ Identifier Controllers operating in environments where DNSSEC is not yet availab
 
 **(c)** Consider compensating controls such as CAA records, DANE-TA pinning (where the CA supports it), or monitoring for unauthorized DNS changes.
 
-Verifiers encountering DNS-based cross-endorsement records without DNSSEC validation MUST treat those records as integrity-unverified. This corresponds to State 5 (Integrity Failure) in [Section 15](#15-validation-states-and-verifier-guidance). Verifiers MAY accept such records with reduced assurance if their risk model explicitly permits it, but MUST NOT treat them as equivalent to DNSSEC-validated records.
+Verifiers encountering DNS-based cross-endorsement records without DNSSEC validation MUST treat those records as integrity-unverified. This corresponds to State 5 (Integrity Failure) in [Section 15](#15-validation-states-and-verifier-guidance). Verifiers MAY accept such records with reduced assurance if their risk model explicitly permits it, but MUST NOT treat them as equivalent to DNSSEC-validated records. Acceptance under this provision is a deliberate, risk-accepted exception to the Verifiable Identifier definition in Section 3, not an instance of it: a DNS domain without integrity protection does not meet the definition of a VID, and a Verifier that chooses to proceed on such a record is knowingly operating outside that definition and assumes the corresponding risk.
 
 The HAVID ecosystem SHOULD track DNSSEC adoption trends and revisit this guidance as deployment matures.
 
@@ -499,6 +503,8 @@ Implementations SHOULD define timeout and retry policies for each resolution ste
 
 Verifiers MUST enforce a maximum cross-endorsement reference depth of 2 when traversing from any single starting identifier. That is, a Verifier starting from Identifier A may follow a cross-endorsement to Identifier B and from B to Identifier C, but MUST NOT follow further references from C to discover Identifier D for the purpose of HAVID validation. Each link in the chain MUST be independently validated; depth-limited traversal does not exempt any reference from the requirements of [Section 9.2](#92-requirements-for-verifiers).
 
+Depth-2 traversal exists solely to discover candidate identifiers for separate, independent validation; it does not itself establish, and MUST NOT be treated as establishing, a cross-endorsement or any composite HAVID assurance between the starting identifier and an identifier reached only at depth 2. If a Verifier wishes to treat Identifier A and Identifier C as cross-endorsed, it MUST locate and validate a direct, bi-directional reference between A and C per [Section 9.2](#92-requirements-for-verifiers); the existence of a validated A–B and B–C path is not a substitute. This preserves the no-transitivity rule of [Section 6.6(b)](#66-cardinality).
+
 ### 14.4. Establishing High Assurance
 
 To establish a HAVID, the Verifier MUST confirm:
@@ -537,7 +543,7 @@ Only unidirectional reference found (one identifier references the other, but th
 
 **State 4: Key Alignment Failure.**
 Bi-directional cross-endorsement may be present, but key material does not match across identifiers.
-*Verifier action:* MUST NOT accept any key alignment claim. The cross-endorsement MAY still be valid independently if it satisfies the requirements for State 1 or 2 without relying on key alignment. SHOULD alert for potential lifecycle desynchronization.
+*Verifier action:* MUST NOT accept any key alignment claim. The cross-endorsement MAY still be valid independently as a State 2 (Cross-Endorsed HAVID) if it satisfies the requirements of Section 9.2 without relying on key alignment. State 1 is unreachable whenever key alignment has been attempted and failed, since the definition of State 1 above requires key alignment to be verified where used. SHOULD alert for potential lifecycle desynchronization.
 
 **State 5: Integrity Failure.**
 One or more integrity checks fail (DNSSEC validation failure, certificate chain validation failure, DID method integrity failure).
@@ -947,6 +953,7 @@ Entities operating DID resolvers, DNS zones, or CAs SHOULD assess whether any pu
 - **[RFC 6125]** P. Saint-Andre; J. Hodges. *Representation and Verification of Domain-Based Application Service Identity.* URL: https://www.rfc-editor.org/rfc/rfc6125
 - **[RFC 6698]** P. Hoffman; J. Schlyter. *The DNS-Based Authentication of Named Entities (DANE) Transport Layer Security (TLS) Protocol: TLSA.* URL: https://www.rfc-editor.org/rfc/rfc6698
 - **[RFC 9108]** A. Durand; R. Allbery. *Leveraging the Domain Name System (DNS) to Discover Legal Entity Identifiers.* URL: https://www.rfc-editor.org/rfc/rfc9108
+- **[RFC 7517]** M. Jones. *JSON Web Key (JWK).* URL: https://www.rfc-editor.org/rfc/rfc7517
 - **[High Assurance DIDs with DNS]** J. Carter. *High Assurance DIDs with DNS.* URL: https://identity.foundation/high-assurance-dids-with-dns/
 - **[DID Method Discovery using DNS]** A. Mayrhofer. *DID Method Discovery using DNS.* URL: https://datatracker.ietf.org/doc/draft-mayrhofer-did-dns/
 - **[did:webvh Specification]** S. Curran; et al. *The did:webvh DID Method v1.0.* URL: https://identity.foundation/didwebvh/
