@@ -60,12 +60,14 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, and SHOULD in this document are to 
 
 ### 5.1. Conformance Classes
 
-This specification defines requirements for three conformance classes. An implementation MAY conform to more than one class.
+This specification defines requirements for three distinct classes of conformant implementation. Each class **MUST** satisfy the requirements marked as applicable to it throughout this specification.
 
-| Conformance Class | Description | Primary Sections |
-|---|---|---|
-| Identifier Controller | An entity that establishes and maintains cross-endorsements and (optionally) key alignment across identifiers it controls. | §6.5, §6.6, §9, §10, §11, §12, §13 |
-| Verifier / Resolver | An entity that resolves identifiers, traverses cross-endorsement references, validates integrity, and determines assurance level. | §6.5, §6.6, §9, §10, §14, §15 |
-| Certificate Authority | A CA that issues X.509 certificates participating in cross-endorsements, including certificates referencing DIDs. | §9, §13, §20.1 |
+| **Conformance Class** | **Description** | **Primary Sections** |
+| --- | --- | --- |
+| **Identifier Controller** | An entity that establishes and maintains cross-endorsements and (optionally) key alignment across identifiers it controls. | §8, §9, §10, §11, §12 |
+| **Verifier / Resolver** | An entity that resolves identifiers, traverses cross-endorsement references, validates integrity, and determines assurance level. | §8, §9, §13, §14 |
+| **Certificate Authority** | A CA that issues X.509 certificates participating in cross-endorsements, including certificates referencing DIDs. | §12, §20.1 |
+
+An implementation **MAY** conform to more than one class. For example, an organization operating its own resolver while also controlling identifiers would conform to both the Identifier Controller and Verifier classes.
 
 ---
