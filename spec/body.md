@@ -1,6 +1,6 @@
 ## 6. Identifier Role Taxonomy
 
-*Sections 6.1–6.4 are non-normative. Sections 6.5 and 6.6 are normative.*
+*This section is non-normative.*
 
 Each identifier type contributes a specific kind of assurance. Cross-endorsements compose these assurances; they do not transfer or replicate them.
 
@@ -39,8 +39,6 @@ DIDs do not inherently prove domain ownership or organizational identity.
 Identifier Controllers SHOULD design cross-endorsements that leverage each identifier's native strengths. Identifier Controllers SHOULD NOT use cross-endorsement to imply an assurance that is native to another identifier type. A DID cross-endorsed with an X.509 certificate does not inherit CA-attested domain ownership; that assurance belongs to the certificate. An X.509 certificate cross-endorsed with a DID does not inherit the DID's programmable key management; that assurance belongs to the DID.
 
 ### 6.5. Cardinality
-
-*This section is normative.*
 
 A single identifier MAY participate in cross-endorsements with multiple identifiers of the same or different types.
 
@@ -358,7 +356,7 @@ Requirements:
 
 - **(a)** The `verificationMethod` MUST be of type `JsonWebKey2020` (or a compatible type supporting JWK representation).
 
-- **(b)** The public key MUST be expressed using the `publicKeyJwk` property.
+- **(b)** The public key MUST be expressed using the `publicKeyJwk` property, per the JSON Web Key format defined in [RFC 7517].
 
 - **(c)** The corresponding X.509 certificate MUST be included via one of the following JWK parameters:
 
@@ -507,7 +505,7 @@ Only unidirectional reference found (one identifier references the other, but th
 
 **State 4: Key Alignment Failure.**
 Bi-directional cross-endorsement may be present, but key material does not match across identifiers.
-*Verifier action:* MUST NOT accept any key alignment claim. The cross-endorsement MAY still be valid independently as a State 2 (Cross-Endorsed HAVID) if it satisfies the requirements of Section 9.2 without relying on key alignment. State 1 is unreachable whenever key alignment has been attempted and failed, since the definition of State 1 above requires key alignment to be verified where used. SHOULD alert for potential lifecycle desynchronization.
+*Verifier action:* MUST NOT accept any key alignment claim. The cross-endorsement MAY still be valid independently if it satisfies the requirements for State 1 or 2 without relying on key alignment. SHOULD alert for potential lifecycle desynchronization.
 
 **State 5: Integrity Failure.**
 One or more integrity checks fail (DNSSEC validation failure, certificate chain validation failure, DID method integrity failure).
@@ -949,7 +947,6 @@ Entities operating DID resolvers, DNS zones, or CAs SHOULD assess whether any pu
 - **[RFC 6125]** P. Saint-Andre; J. Hodges. *Representation and Verification of Domain-Based Application Service Identity.* URL: https://www.rfc-editor.org/rfc/rfc6125
 - **[RFC 6698]** P. Hoffman; J. Schlyter. *The DNS-Based Authentication of Named Entities (DANE) Transport Layer Security (TLS) Protocol: TLSA.* URL: https://www.rfc-editor.org/rfc/rfc6698
 - **[RFC 9108]** A. Durand; R. Allbery. *Leveraging the Domain Name System (DNS) to Discover Legal Entity Identifiers.* URL: https://www.rfc-editor.org/rfc/rfc9108
-- **[RFC 7517]** M. Jones. *JSON Web Key (JWK).* URL: https://www.rfc-editor.org/rfc/rfc7517
 - **[High Assurance DIDs with DNS]** J. Carter. *High Assurance DIDs with DNS.* URL: https://identity.foundation/high-assurance-dids-with-dns/
 - **[DID Method Discovery using DNS]** A. Mayrhofer. *DID Method Discovery using DNS.* URL: https://datatracker.ietf.org/doc/draft-mayrhofer-did-dns/
 - **[did:webvh Specification]** S. Curran; et al. *The did:webvh DID Method v1.0.* URL: https://identity.foundation/didwebvh/
