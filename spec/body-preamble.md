@@ -6,6 +6,8 @@
 
 - **X.509 Certificate:** As defined in [RFC 5280].
 
+- **Subject Alternative Name (SAN):** An X.509 certificate extension permitting additional identities to be bound to the certificate subject, including DNS names and URIs, as defined in [RFC 5280] and [RFC 6125].
+
 - **DNS Domain Name:** A globally unique and hierarchical identifier assigned through the Domain Name System, as defined in [RFC 1035].
 
 - **DNSSEC:** DNS Security Extensions, as defined in [RFC 4033].
@@ -20,7 +22,7 @@
 
 - **Verification Method:** As defined in [DID-CORE], a data structure in a DID Document describing a mechanism for proving control of a DID.
 
-- **Verifiable Identifier (VID):** A digital identifier whose control can be verified through cryptographic or integrity-protected mechanisms. In this specification, VIDs include DIDs, X.509 certificates, and DNS domain names (when integrity-protected).
+- **Verifiable Identifier (VID):** A digital identifier whose control can be verified through cryptographic or integrity-protected mechanisms. In this specification, VIDs include DIDs, X.509 certificates, and DNS domain names (when integrity-protected). See [Section 11.4](#114-dnssec-deployment-considerations) for the treatment of DNS domain names that lack integrity protection.
 
 - **Cross-Endorsement:** A verifiable, bi-directional linkage between identifiers established through explicit mutual references in each identifier's native metadata or record format. Cross-endorsement is the primary bridging mechanism defined in this specification.
 
@@ -62,8 +64,8 @@ This specification defines requirements for three conformance classes. An implem
 
 | Conformance Class | Description | Primary Sections |
 |---|---|---|
-| Identifier Controller | An entity that establishes and maintains cross-endorsements and (optionally) key alignment across identifiers it controls. | §9, §10, §11, §12, §13 |
-| Verifier / Resolver | An entity that resolves identifiers, traverses cross-endorsement references, validates integrity, and determines assurance level. | §9, §10, §14, §15 |
-| Certificate Authority | A CA that issues X.509 certificates participating in cross-endorsements, including certificates referencing DIDs. | §13, §20.1 |
+| Identifier Controller | An entity that establishes and maintains cross-endorsements and (optionally) key alignment across identifiers it controls. | §6.5, §6.6, §9, §10, §11, §12, §13 |
+| Verifier / Resolver | An entity that resolves identifiers, traverses cross-endorsement references, validates integrity, and determines assurance level. | §6.5, §6.6, §9, §10, §14, §15 |
+| Certificate Authority | A CA that issues X.509 certificates participating in cross-endorsements, including certificates referencing DIDs. | §9, §13, §20.1 |
 
 ---
