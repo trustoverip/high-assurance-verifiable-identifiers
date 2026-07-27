@@ -44,11 +44,11 @@ A single identifier MAY participate in cross-endorsements with multiple identifi
 
 When an identifier participates in multiple cross-endorsements:
 
-- **(a)** Each cross-endorsement MUST be independently verifiable.
+- **a)** Each cross-endorsement MUST be independently verifiable.
 
-- **(b)** Verifiers MUST NOT infer transitive trust across cross-endorsements. If a DID is cross-endorsed with Domain X and Domain X is cross-endorsed with Certificate Y, the Verifier MUST NOT treat the DID as cross-endorsed with Certificate Y unless a direct, independently verifiable cross-endorsement exists between them.
+- **b)** Verifiers MUST NOT infer transitive trust across cross-endorsements. If a DID is cross-endorsed with Domain X and Domain X is cross-endorsed with Certificate Y, the Verifier MUST NOT treat the DID as cross-endorsed with Certificate Y unless a direct, independently verifiable cross-endorsement exists between them.
 
-- **(c)** Identifier Controllers SHOULD limit active cross-endorsements to those serving a clear operational purpose.
+- **c)** Identifier Controllers SHOULD limit active cross-endorsements to those serving a clear operational purpose.
 
 ---
 
@@ -86,27 +86,27 @@ Cross-endorsement is the primary mechanism for linking VID types. It is establis
 
 To establish a cross-endorsement between two identifiers, an Identifier Controller:
 
-- **(a)** MUST include an explicit reference to each identifier within the other's native metadata or record format, using the mechanisms defined in Sections 10 through 12 for each identifier pairing.
+- **a)** MUST include an explicit reference to each identifier within the other's native metadata or record format, using the mechanisms defined in Sections 10 through 12 for each identifier pairing.
 
-- **(b)** MUST ensure that references are persistently and reliably hosted for the duration of the cross-endorsement.
+- **b)** MUST ensure that references are persistently and reliably hosted for the duration of the cross-endorsement.
 
-- **(c)** MUST store references in integrity-protected formats where available. For DNS records, this means DNSSEC (see [Section 10.4](#104-dnssec-deployment-considerations) for deployment guidance). For X.509 certificates, this means CA-signed extensions. For DID Documents, this means the integrity mechanisms provided by the DID method.
+- **c)** MUST store references in integrity-protected formats where available. For DNS records, this means DNSSEC (see [Section 10.4](#104-dnssec-deployment-considerations) for deployment guidance). For X.509 certificates, this means CA-signed extensions. For DID Documents, this means the integrity mechanisms provided by the DID method.
 
-- **(d)** SHOULD implement access control policies governing who can write or update references.
+- **d)** SHOULD implement access control policies governing who can write or update references.
 
-- **(e)** SHOULD define governance procedures for how references are verified, updated, and revoked over time.
+- **e)** SHOULD define governance procedures for how references are verified, updated, and revoked over time.
 
 ### 8.2. Requirements for Verifiers
 
 To verify a cross-endorsement, a Verifier:
 
-- **(a)** MUST resolve both identifiers using their native resolution mechanisms.
+- **a)** MUST resolve both identifiers using their native resolution mechanisms.
 
-- **(b)** MUST confirm that each identifier contains a reference to the other (bi-directional cross-endorsement).
+- **b)** MUST confirm that each identifier contains a reference to the other (bi-directional cross-endorsement).
 
-- **(c)** MUST validate the integrity of each reference (DNSSEC validation, certificate chain validation, DID method integrity).
+- **c)** MUST validate the integrity of each reference (DNSSEC validation, certificate chain validation, DID method integrity).
 
-- **(d)** MUST check the current validity of each identifier (not expired, not revoked, not deactivated).
+- **d)** MUST check the current validity of each identifier (not expired, not revoked, not deactivated).
 
 For handling partial or failed validation states, see [Section 14](#14-validation-states-and-verifier-guidance).
 
@@ -114,11 +114,11 @@ For handling partial or failed validation states, see [Section 14](#14-validatio
 
 Cross-endorsements are subject to the lifecycle of each participating identifier:
 
-- **(a)** If an identifier is revoked, expired, or deactivated, the cross-endorsement MUST be treated as invalid by Verifiers.
+- **a)** If an identifier is revoked, expired, or deactivated, the cross-endorsement MUST be treated as invalid by Verifiers.
 
-- **(b)** When an identifier is updated (e.g., a certificate is renewed or a DID Document is modified), the Identifier Controller MUST preserve or re-establish cross-endorsement references.
+- **b)** When an identifier is updated (e.g., a certificate is renewed or a DID Document is modified), the Identifier Controller MUST preserve or re-establish cross-endorsement references.
 
-- **(c)** Verifiers SHOULD define re-validation intervals appropriate to their risk model.
+- **c)** Verifiers SHOULD define re-validation intervals appropriate to their risk model.
 
 ---
 
@@ -132,45 +132,45 @@ Key alignment is an OPTIONAL, supplementary mechanism that provides additional p
 
 An Identifier Controller MAY establish key alignment when all of the following conditions are met:
 
-- **(a)** The participating identifier systems share compatible cryptographic formats and algorithms.
+- **a)** The participating identifier systems share compatible cryptographic formats and algorithms.
 
-- **(b)** The key rotation schedules and cryptoperiods are compatible or can be explicitly coordinated.
+- **b)** The key rotation schedules and cryptoperiods are compatible or can be explicitly coordinated.
 
-- **(c)** The Identifier Controller has assessed and accepted the risks described in [Section 7](#7-architecture-overview) and the threat model in [Section 16](#16-threat-model).
+- **c)** The Identifier Controller has assessed and accepted the risks described in [Section 7](#7-architecture-overview) and the threat model in [Section 16](#16-threat-model).
 
 An Identifier Controller SHOULD NOT establish key alignment when:
 
-- **(a)** The participating systems have significantly different cryptoperiods (e.g., short-lived TLS certificates and long-lived DIDs) and the Identifier Controller cannot commit to synchronized key rotation.
+- **a)** The participating systems have significantly different cryptoperiods (e.g., short-lived TLS certificates and long-lived DIDs) and the Identifier Controller cannot commit to synchronized key rotation.
 
-- **(b)** Using the same key would collapse governance boundaries or operational roles that should remain distinct.
+- **b)** Using the same key would collapse governance boundaries or operational roles that should remain distinct.
 
-- **(c)** Cross-endorsement alone provides sufficient assurance for the intended use case.
+- **c)** Cross-endorsement alone provides sufficient assurance for the intended use case.
 
 ### 9.2. Requirements for Identifier Controllers
 
 When key alignment is implemented, the Identifier Controller:
 
-- **(a)** MUST ensure the key material is identical across all representations. This means byte-for-byte equivalence of public key material after normalization to a common encoding. Keys that are merely compatible (e.g., same curve but different keys) do not satisfy this requirement.
+- **a)** MUST ensure the key material is identical across all representations. This means byte-for-byte equivalence of public key material after normalization to a common encoding. Keys that are merely compatible (e.g., same curve but different keys) do not satisfy this requirement.
 
-- **(b)** MUST coordinate key rotation across all systems in which the key is used. When a key is rotated in any one system, it MUST be rotated in all systems, or the key alignment MUST be explicitly dissolved.
+- **b)** MUST coordinate key rotation across all systems in which the key is used. When a key is rotated in any one system, it MUST be rotated in all systems, or the key alignment MUST be explicitly dissolved.
 
-- **(c)** MUST treat the effective cryptoperiod of the shared key as the shortest cryptoperiod among all participating systems.
+- **c)** MUST treat the effective cryptoperiod of the shared key as the shortest cryptoperiod among all participating systems.
 
-- **(d)** MUST document which systems share key material and maintain an auditable record of key alignment relationships.
+- **d)** MUST document which systems share key material and maintain an auditable record of key alignment relationships.
 
-- **(e)** SHOULD monitor for key compromise indicators across all participating systems.
+- **e)** SHOULD monitor for key compromise indicators across all participating systems.
 
 ### 9.3. Requirements for Verifiers
 
 To verify key alignment, a Verifier:
 
-- **(a)** MUST extract the public key from each identifier (DID Document `verificationMethod`, X.509 certificate subject public key, or DNS TLSA record).
+- **a)** MUST extract the public key from each identifier (DID Document `verificationMethod`, X.509 certificate subject public key, or DNS TLSA record).
 
-- **(b)** MUST confirm that the keys are identical by byte-for-byte comparison after normalization.
+- **b)** MUST confirm that the keys are identical by byte-for-byte comparison after normalization.
 
-- **(c)** MUST verify that the key is currently valid in all participating systems, not just one.
+- **c)** MUST verify that the key is currently valid in all participating systems, not just one.
 
-- **(d)** MAY request proof of possession (see [Section 9.4](#94-proof-of-possession)).
+- **d)** MAY request proof of possession (see [Section 9.4](#94-proof-of-possession)).
 
 ### 9.4. Proof of Possession
 
@@ -188,7 +188,7 @@ Consider an organization that uses the same RSA key pair in both a DID Document 
 
 At this point the DID Document still contains the old public key while the TLS certificate contains a new one. A Verifier checking key alignment will find a mismatch. If the old key is later compromised, an attacker could present the DID Document's stale key as valid, since the DID has not been updated.
 
-This scenario illustrates why key alignment MUST be accompanied by coordinated rotation (Section 9.2(b)) and why the effective cryptoperiod MUST track the shortest-lived system (Section 9.2(c)). When these requirements cannot be met, cross-endorsement without key alignment is the safer choice.
+This scenario illustrates why key alignment MUST be accompanied by coordinated rotation (Section 9.2(b)) and why the effective cryptoperiod MUST track the shortest-lived system (Section 9.2 c)). When these requirements cannot be met, cross-endorsement without key alignment is the safer choice.
 
 ---
 
@@ -241,11 +241,11 @@ The `did:web` method resolves DID Documents by fetching them from a web server a
 
 Identifier Controllers and Verifiers MUST observe the following:
 
-- **(a)** A `did:web`-to-own-host-domain cross-endorsement provides discoverability and structural linkage only. Verifiers MUST NOT treat it as providing independent assurance equivalent to a cross-endorsement involving an independently-anchored DID.
+- **a)** A `did:web`-to-own-host-domain cross-endorsement provides discoverability and structural linkage only. Verifiers MUST NOT treat it as providing independent assurance equivalent to a cross-endorsement involving an independently-anchored DID.
 
-- **(b)** For independent assurance, the DID method used SHOULD have integrity properties that do not depend solely on the DNS domain (e.g., `did:webvh`, `did:webs`, ledger-based methods, or methods with independent verifiable history).
+- **b)** For independent assurance, the DID method used SHOULD have integrity properties that do not depend solely on the DNS domain (e.g., `did:webvh`, `did:webs`, ledger-based methods, or methods with independent verifiable history).
 
-- **(c)** Verifiers MUST consider the DID method's trust properties when assessing the overall assurance level of a HAVID. A HAVID built entirely on `did:web` and its host domain carries strictly lower assurance than one built on a DID method with independent integrity.
+- **c)** Verifiers MUST consider the DID method's trust properties when assessing the overall assurance level of a HAVID. A HAVID built entirely on `did:web` and its host domain carries strictly lower assurance than one built on a DID method with independent integrity.
 
 ### 10.2. Cross-Endorsement: DNS to DID
 
@@ -267,9 +267,9 @@ The DNS zone containing the URI record MUST be integrity-protected (see [Section
 
 Where key alignment is desired between a DID and a DNS domain, it is established by:
 
-- **(a)** Publishing the public key in the DID Document via a `verificationMethod`.
+- **a)** Publishing the public key in the DID Document via a `verificationMethod`.
 
-- **(b)** Publishing a corresponding TLSA record in DNS, as defined in Section 3.4 of [High Assurance DIDs with DNS], binding the domain to the same public key.
+- **b)** Publishing a corresponding TLSA record in DNS, as defined in Section 3.4 of [High Assurance DIDs with DNS], binding the domain to the same public key.
 
 Both the DID Document and the DNS zone are mutable. Therefore:
 
@@ -286,11 +286,11 @@ This specification requires integrity protection for DNS-based cross-endorsement
 
 Identifier Controllers operating in environments where DNSSEC is not yet available SHOULD:
 
-- **(a)** Prioritize registrars and DNS providers that support DNSSEC signing and DS record publication.
+- **a)** Prioritize registrars and DNS providers that support DNSSEC signing and DS record publication.
 
-- **(b)** Document the absence of DNSSEC in their operational security assessment and treat the resulting HAVID as carrying reduced DNS-side integrity assurance.
+- **b)** Document the absence of DNSSEC in their operational security assessment and treat the resulting HAVID as carrying reduced DNS-side integrity assurance.
 
-- **(c)** Consider compensating controls such as CAA records, DANE-TA pinning (where the CA supports it), or monitoring for unauthorized DNS changes.
+- **c)** Consider compensating controls such as CAA records, DANE-TA pinning (where the CA supports it), or monitoring for unauthorized DNS changes.
 
 Verifiers encountering DNS-based cross-endorsement records without DNSSEC validation MUST treat those records as integrity-unverified. This corresponds to State 5 (Integrity Failure) in [Section 14](#14-validation-states-and-verifier-guidance). Verifiers MAY accept such records with reduced assurance if their risk model explicitly permits it, but MUST NOT treat them as equivalent to DNSSEC-validated records.
 
@@ -319,17 +319,17 @@ DNS can explicitly endorse an X.509 certificate using DANE ([RFC 6698]), which p
 
 An Identifier Controller establishes a DNS-to-X.509 cross-endorsement by:
 
-- **(a)** Publishing a TLSA record at a service-specific DNS name (e.g., `_443._tcp.example.com`) containing the hash or raw data of the X.509 certificate or its public key.
+- **a)** Publishing a TLSA record at a service-specific DNS name (e.g., `_443._tcp.example.com`) containing the hash or raw data of the X.509 certificate or its public key.
 
-- **(b)** Protecting the DNS zone with DNSSEC (see [Section 10.4](#104-dnssec-deployment-considerations)).
+- **b)** Protecting the DNS zone with DNSSEC (see [Section 10.4](#104-dnssec-deployment-considerations)).
 
 A Verifier confirms the cross-endorsement by:
 
-- **(a)** Retrieving the TLSA record and validating the DNSSEC signature chain.
+- **a)** Retrieving the TLSA record and validating the DNSSEC signature chain.
 
-- **(b)** Retrieving the X.509 certificate presented over TLS.
+- **b)** Retrieving the X.509 certificate presented over TLS.
 
-- **(c)** Confirming that the certificate matches the TLSA assertion.
+- **c)** Confirming that the certificate matches the TLSA assertion.
 
 | DNS Domain | TLSA Record | Selector | Matching Type | Description |
 |---|---|---|---|---|
@@ -354,11 +354,11 @@ An Identifier Controller establishes a DID-to-X.509 cross-endorsement by includi
 
 Requirements:
 
-- **(a)** The `verificationMethod` MUST be of type `JsonWebKey2020` (or a compatible type supporting JWK representation).
+- **a)** The `verificationMethod` MUST be of type `JsonWebKey2020` (or a compatible type supporting JWK representation).
 
-- **(b)** The public key MUST be expressed using the `publicKeyJwk` property, per the JSON Web Key format defined in [RFC 7517].
+- **b)** The public key MUST be expressed using the `publicKeyJwk` property, per the JSON Web Key format defined in [RFC 7517].
 
-- **(c)** The corresponding X.509 certificate MUST be included via one of the following JWK parameters:
+- **c)** The corresponding X.509 certificate MUST be included via one of the following JWK parameters:
 
 - `x5u`: a URI pointing to a retrievable resource containing the X.509 certificate or certificate chain.
 - `x5c`: an array of base64-encoded DER certificates, representing a standalone certificate or a complete chain.
@@ -389,11 +389,11 @@ X509v3 Subject Alternative Name:
 
 Requirements:
 
-- **(a)** The DID MUST appear as a URI in the SAN extension.
+- **a)** The DID MUST appear as a URI in the SAN extension.
 
-- **(b)** The DID MUST follow the syntax rules of the relevant DID method.
+- **b)** The DID MUST follow the syntax rules of the relevant DID method.
 
-- **(c)** The DID MUST be the only DID in the SAN, or clearly identifiable if multiple URIs are present.
+- **c)** The DID MUST be the only DID in the SAN, or clearly identifiable if multiple URIs are present.
 
 Certificate Authorities issuing certificates with DID URIs in the SAN MUST follow the requirements in [Section 20.1](#201-certificate-policy-requirements-for-cas-resolving-and-verifying-dids).
 
@@ -405,13 +405,13 @@ This pairing carries the **highest lifecycle mismatch risk** of the three pairin
 
 When key alignment is implemented for this pairing:
 
-- **(a)** All normative requirements of [Section 9](#9-key-alignment) apply.
+- **a)** All normative requirements of [Section 9](#9-key-alignment) apply.
 
-- **(b)** The effective cryptoperiod of the shared key MUST be treated as no longer than the certificate's validity period.
+- **b)** The effective cryptoperiod of the shared key MUST be treated as no longer than the certificate's validity period.
 
-- **(c)** When the certificate is renewed with new key material, the Identifier Controller MUST update the DID Document to reflect the new key, or MUST explicitly dissolve the key alignment relationship.
+- **c)** When the certificate is renewed with new key material, the Identifier Controller MUST update the DID Document to reflect the new key, or MUST explicitly dissolve the key alignment relationship.
 
-- **(d)** Identifier Controllers SHOULD evaluate whether cross-endorsement alone provides sufficient assurance before introducing the complexity of synchronized keys.
+- **d)** Identifier Controllers SHOULD evaluate whether cross-endorsement alone provides sufficient assurance before introducing the complexity of synchronized keys.
 
 ---
 
@@ -471,11 +471,11 @@ Verifiers MUST enforce a maximum cross-endorsement reference depth of 2 when tra
 
 To establish a HAVID, the Verifier MUST confirm:
 
-- **(a)** **Bi-directional cross-endorsement.** Both identifiers reference each other through their native mechanisms.
+- **a)** **Bi-directional cross-endorsement.** Both identifiers reference each other through their native mechanisms.
 
-- **(b)** **Integrity.** Each reference is integrity-protected (DNSSEC for DNS, CA chain for X.509, DID method integrity for DID Documents).
+- **b)** **Integrity.** Each reference is integrity-protected (DNSSEC for DNS, CA chain for X.509, DID method integrity for DID Documents).
 
-- **(c)** **Validity.** Each identifier is currently valid (not expired, not revoked, not deactivated).
+- **c)** **Validity.** Each identifier is currently valid (not expired, not revoked, not deactivated).
 
 A HAVID may link two identifiers (e.g., DID and DNS only) or three (DID, DNS, and X.509). A two-identifier HAVID is valid provided the requirements above are met for that pair. Verifiers SHOULD consider the number and diversity of cross-endorsed identifiers when assessing overall assurance.
 
@@ -523,13 +523,13 @@ No cross-endorsement references found between the identifiers.
 
 When a Verifier encounters a degraded state (States 3 through 6):
 
-- **(a)** The Verifier MUST NOT silently promote a degraded state to full HAVID assurance.
+- **a)** The Verifier MUST NOT silently promote a degraded state to full HAVID assurance.
 
-- **(b)** The Verifier SHOULD surface the specific failure to the relying application.
+- **b)** The Verifier SHOULD surface the specific failure to the relying application.
 
-- **(c)** The Verifier MAY re-attempt resolution after a brief interval to account for temporary failures or propagation delays, but MUST NOT retry indefinitely.
+- **c)** The Verifier MAY re-attempt resolution after a brief interval to account for temporary failures or propagation delays, but MUST NOT retry indefinitely.
 
-- **(d)** The Verifier SHOULD log degraded states for audit and monitoring purposes.
+- **d)** The Verifier SHOULD log degraded states for audit and monitoring purposes.
 
 ### 14.3. Transitional States
 
@@ -558,13 +558,13 @@ _lei.example.org.  IN  NAPTR  100  10  "u"  "lei+https"
 
 To identify the organization controlling a VID, a Verifier SHOULD:
 
-- **(a)** Start from a known identifier.
+- **a)** Start from a known identifier.
 
-- **(b)** Resolve linked identifiers via cross-endorsement (per [Section 13](#13-resolution-and-dereferencing)).
+- **b)** Resolve linked identifiers via cross-endorsement (per [Section 13](#13-resolution-and-dereferencing)).
 
-- **(c)** Extract organizational identifiers from the X.509 certificate subject or extensions, or from DNS NAPTR records.
+- **c)** Extract organizational identifiers from the X.509 certificate subject or extensions, or from DNS NAPTR records.
 
-- **(d)** Query the appropriate registry (e.g., GLEIF API for LEIs, national business registries for others) to retrieve verified organizational metadata.
+- **d)** Query the appropriate registry (e.g., GLEIF API for LEIs, national business registries for others) to retrieve verified organizational metadata.
 
 ### 15.3. Organizational Identity is Not Required for a HAVID
 
@@ -687,17 +687,17 @@ X509v3 Subject Alternative Name:
 
 A Verifier starts from the DID `did:webvh:z6Mkf5rGMoatrSj1f:acme-corp.example:org`.
 
-**Step 1: Resolve the DID Document.** The Verifier retrieves the DID Document and extracts `dnsValidationDomain: "acme-corp.example"` and the `x5u` certificate reference.
+- **Step 1: Resolve the DID Document.** The Verifier retrieves the DID Document and extracts `dnsValidationDomain: "acme-corp.example"` and the `x5u` certificate reference.
 
-**Step 2: Verify DNS cross-endorsement.** The Verifier queries `_did.acme-corp.example` for a URI record. It returns the DID. The Verifier validates the DNSSEC chain. Bi-directional cross-endorsement confirmed between DID and DNS.
+- **Step 2: Verify DNS cross-endorsement.** The Verifier queries `_did.acme-corp.example` for a URI record. It returns the DID. The Verifier validates the DNSSEC chain. Bi-directional cross-endorsement confirmed between DID and DNS.
 
-**Step 3: Verify X.509 cross-endorsement.** The Verifier retrieves the certificate from `x5u`. It inspects the SAN and finds the DID URI. The Verifier validates the certificate chain against its trusted root store. Bi-directional cross-endorsement confirmed between DID and X.509.
+- **Step 3: Verify X.509 cross-endorsement.** The Verifier retrieves the certificate from `x5u`. It inspects the SAN and finds the DID URI. The Verifier validates the certificate chain against its trusted root store. Bi-directional cross-endorsement confirmed between DID and X.509.
 
-**Step 4: Extract organizational identity.** From the X.509 certificate, the Verifier extracts LEI `5493001KJTIIGC8Y1R12`. The Verifier queries the GLEIF API and retrieves Acme Corp's legal name, registration jurisdiction, and status.
+- **Step 4: Extract organizational identity.** From the X.509 certificate, the Verifier extracts LEI `5493001KJTIIGC8Y1R12`. The Verifier queries the GLEIF API and retrieves Acme Corp's legal name, registration jurisdiction, and status.
 
-**Step 5 (optional): Verify key alignment.** The Verifier compares the public key in the DID Document's `verificationMethod` against the public key in the X.509 certificate and the hash in the DNS TLSA record. If all match, key alignment is confirmed.
+- **Step 5 (optional): Verify key alignment.** The Verifier compares the public key in the DID Document's `verificationMethod` against the public key in the X.509 certificate and the hash in the DNS TLSA record. If all match, key alignment is confirmed.
 
-**Result:** Full HAVID (State 1) linking the DID, the DNS domain, and the EV certificate, with organizational identity traced to Acme Corp via LEI.
+- **Result:** Full HAVID (State 1) linking the DID, the DNS domain, and the EV certificate, with organizational identity traced to Acme Corp via LEI.
 
 #### 17.1.4. What Each Identifier Contributed
 
@@ -755,13 +755,13 @@ MegaBank recently completed an infrastructure migration. During the migration, t
 
 A Verifier starts from the DID `did:webvh:z6MkpT9StBU:megabank.example:id`.
 
-**Step 1: Resolve the DID Document.** Succeeds. The DID Document is well-formed and the `did:webvh` log verifies correctly. The Verifier extracts `dnsValidationDomain: "megabank.example"` and the `x5u` certificate reference.
+- **Step 1: Resolve the DID Document.** Succeeds. The DID Document is well-formed and the `did:webvh` log verifies correctly. The Verifier extracts `dnsValidationDomain: "megabank.example"` and the `x5u` certificate reference.
 
-**Step 2: Verify DNS cross-endorsement.** The Verifier queries `_did.megabank.example`. The URI record exists and points back to the DID. However, DNSSEC validation fails because the zone is unsigned. **Result: State 5 (Integrity Failure) for the DNS leg.** The Verifier records that bi-directional references exist but the DNS side cannot be integrity-verified.
+- **Step 2: Verify DNS cross-endorsement.** The Verifier queries `_did.megabank.example`. The URI record exists and points back to the DID. However, DNSSEC validation fails because the zone is unsigned. **Result: State 5 (Integrity Failure) for the DNS leg.** The Verifier records that bi-directional references exist but the DNS side cannot be integrity-verified.
 
-**Step 3: Verify X.509 cross-endorsement.** The Verifier retrieves the certificate from `x5u`. The SAN contains the DID URI (bi-directional reference exists). However, the certificate expired three days ago. **Result: State 6 (Expired or Revoked) for the X.509 leg.**
+- **Step 3: Verify X.509 cross-endorsement.** The Verifier retrieves the certificate from `x5u`. The SAN contains the DID URI (bi-directional reference exists). However, the certificate expired three days ago. **Result: State 6 (Expired or Revoked) for the X.509 leg.**
 
-**Step 4: Assess key alignment.** The DID Document contains a new public key. The expired certificate contains the old public key. The keys do not match. **Result: State 4 (Key Alignment Failure)** if key alignment was being relied upon.
+- **Step 4: Assess key alignment.** The DID Document contains a new public key. The expired certificate contains the old public key. The keys do not match. **Result: State 4 (Key Alignment Failure)** if key alignment was being relied upon.
 
 #### 17.4.3. Overall Assessment
 
@@ -796,15 +796,15 @@ Until all four steps are complete, the HAVID remains in a degraded state.
 
 The cross-endorsement pattern is designed to be extensible. A specification defining HAVID support for a new VID type SHOULD address the following elements:
 
-**(1) Structured metadata or record format.** The identifier system must provide a mechanism for embedding machine-readable references to other identifiers (analogous to SAN extensions in X.509, URI records in DNS, or `verificationMethod` entries in DID Documents).
+- **(1) Structured metadata or record format.** The identifier system must provide a mechanism for embedding machine-readable references to other identifiers (analogous to SAN extensions in X.509, URI records in DNS, or `verificationMethod` entries in DID Documents).
 
-**(2) Integrity protection.** A mechanism for ensuring the authenticity and tamper-resistance of stored references.
+- **(2) Integrity protection.** A mechanism for ensuring the authenticity and tamper-resistance of stored references.
 
-**(3) Resolution mechanism.** A standardized way for Verifiers to retrieve the identifier's metadata, including cross-endorsement references.
+- **(3) Resolution mechanism.** A standardized way for Verifiers to retrieve the identifier's metadata, including cross-endorsement references.
 
-**(4) Defined lifecycle.** Clear semantics for creation, update, revocation, and expiration.
+- **(4) Defined lifecycle.** Clear semantics for creation, update, revocation, and expiration.
 
-**(5) HAVID discovery signal.** A mechanism for signaling to Verifiers that the identifier participates in a HAVID, enabling efficient discovery without unnecessary resolution attempts (e.g., a well-known URI, a DNS flag, a certificate extension OID, or a DID Document property).
+- **(5) HAVID discovery signal.** A mechanism for signaling to Verifiers that the identifier participates in a HAVID, enabling efficient discovery without unnecessary resolution attempts (e.g., a well-known URI, a DNS flag, a certificate extension OID, or a DID Document property).
 
 A new HAVID cross-endorsement profile SHOULD include: reference field(s) and syntax for each target VID type; the integrity mechanism and whether it is inherent or requires configuration; the resolution and dereferencing procedure; lifecycle mapping including synchronization guidance; key alignment constraints and risks; and any new or modified validation states.
 
@@ -838,13 +838,13 @@ Verifiers MUST validate certificate chains against trusted root stores. Certific
 
 Bi-directional references and reference chaining can create circular dependencies or be exploited to escalate trust.
 
-**(a)** Verifiers MUST enforce a maximum reference depth as defined in [Section 13.3](#133-resolution-behavior). Implementations MUST NOT follow cross-endorsement chains beyond this limit.
+- **a)** Verifiers MUST enforce a maximum reference depth as defined in [Section 13.3](#133-resolution-behavior). Implementations MUST NOT follow cross-endorsement chains beyond this limit.
 
-**(b)** Each reference in a chain MUST be validated independently; transitive trust MUST NOT be assumed by default (see also [Section 6.5](#65-cardinality)).
+- **b)** Each reference in a chain MUST be validated independently; transitive trust MUST NOT be assumed by default (see also [Section 6.5](#65-cardinality)).
 
-**(c)** Implementations SHOULD log and rate-limit resolution attempts to detect and mitigate abuse.
+- **c)** Implementations SHOULD log and rate-limit resolution attempts to detect and mitigate abuse.
 
-**(d)** Implementations SHOULD set a per-resolution timeout ceiling (e.g., no more than 30 seconds total across all resolution steps for a single HAVID verification) to prevent resource exhaustion by adversaries who control slow-responding endpoints.
+- **d)** Implementations SHOULD set a per-resolution timeout ceiling (e.g., no more than 30 seconds total across all resolution steps for a single HAVID verification) to prevent resource exhaustion by adversaries who control slow-responding endpoints.
 
 ### 19.7. Resolution Pattern Observability
 
@@ -862,17 +862,17 @@ Verifiers operating in privacy-sensitive contexts SHOULD consider using encrypte
 
 When a Certificate Authority issues an X.509 certificate that includes a DID URI in the Subject Alternative Name:
 
-**(a)** The CA MUST resolve the DID using a conformant DID resolver prior to issuance.
+- **a)** The CA MUST resolve the DID using a conformant DID resolver prior to issuance.
 
-**(b)** The CA MUST retrieve the DID Document and extract `verificationMethod` entries.
+- **b)** The CA MUST retrieve the DID Document and extract `verificationMethod` entries.
 
-**(c)** The CA MUST validate that the CSR's public key matches a public key controlled by the DID, either by direct key comparison or by challenge-response proof of possession.
+- **c)** The CA MUST validate that the CSR's public key matches a public key controlled by the DID, either by direct key comparison or by challenge-response proof of possession.
 
-**(d)** The CA MUST record the resolution and validation steps in its issuance audit log.
+- **d)** The CA MUST record the resolution and validation steps in its issuance audit log.
 
-**(e)** The CA SHOULD treat DID resolution failures or unverifiable key proofs as grounds to reject the CSR.
+- **e)** The CA SHOULD treat DID resolution failures or unverifiable key proofs as grounds to reject the CSR.
 
-**(f)** The CA SHOULD record a timestamp or version of the DID Document in issuance metadata to support post-issuance auditability.
+- **f)** The CA SHOULD record a timestamp or version of the DID Document in issuance metadata to support post-issuance auditability.
 
 CAs participating in HAVID cross-endorsement SHOULD update their Certificate Policies (CP) and Certification Practice Statements (CPS) to define procedures for resolving and verifying DIDs, specify validation criteria, include lifecycle synchronization requirements, and document trust assumptions related to DID methods in scope.
 
@@ -882,11 +882,11 @@ CAs participating in HAVID cross-endorsement SHOULD update their Certificate Pol
 
 Cross-endorsing identifiers with different lifecycles introduces coordination responsibilities:
 
-**Rekeying.** If a certificate is rekeyed, the Identifier Controller SHOULD update cross-endorsement references in associated DID Documents. If key alignment is in use, the Identifier Controller MUST update the DID Document to reflect the new key.
+- **Rekeying.** If a certificate is rekeyed, the Identifier Controller SHOULD update cross-endorsement references in associated DID Documents. If key alignment is in use, the Identifier Controller MUST update the DID Document to reflect the new key.
 
-**Revocation.** If a certificate is revoked due to key compromise, the Identifier Controller SHOULD update the DID Document to remove or revoke trust in the affected key.
+- **Revocation.** If a certificate is revoked due to key compromise, the Identifier Controller SHOULD update the DID Document to remove or revoke trust in the affected key.
 
-**Expiration.** Certificate expiration does not automatically invalidate the DID. These are separate but interlinked lifecycles. However, a Verifier MUST treat a cross-endorsement involving an expired certificate as invalid (per [Section 14](#14-validation-states-and-verifier-guidance), State 6).
+- **Expiration.** Certificate expiration does not automatically invalidate the DID. These are separate but interlinked lifecycles. However, a Verifier MUST treat a cross-endorsement involving an expired certificate as invalid (per [Section 14](#14-validation-states-and-verifier-guidance), State 6).
 
 ---
 
