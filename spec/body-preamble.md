@@ -6,6 +6,8 @@
 
 - **X.509 Certificate:** As defined in [RFC 5280].
 
+- **Subject Alternative Name (SAN):** An X.509 certificate extension permitting additional identities to be bound to the certificate subject, including DNS names and URIs, as defined in [RFC 5280] and [RFC 6125].
+
 - **DNS Domain Name:** A globally unique and hierarchical identifier assigned through the Domain Name System, as defined in [RFC 1035].
 
 - **DNSSEC:** DNS Security Extensions, as defined in [RFC 4033].
@@ -20,7 +22,7 @@
 
 - **Verification Method:** As defined in [DID-CORE], a data structure in a DID Document describing a mechanism for proving control of a DID.
 
-- **Verifiable Identifier (VID):** A digital identifier whose control can be verified through cryptographic or integrity-protected mechanisms. In this specification, VIDs include DIDs, X.509 certificates, and DNS domain names (when integrity-protected).
+- **Verifiable Identifier (VID):** A digital identifier whose control can be verified through cryptographic or integrity-protected mechanisms. In this specification, VIDs include DIDs, X.509 certificates, and DNS domain names (when integrity-protected). See [Section 11.4](#114-dnssec-deployment-considerations) for the treatment of DNS domain names that lack integrity protection.
 
 - **Cross-Endorsement:** A verifiable, bi-directional linkage between identifiers established through explicit mutual references in each identifier's native metadata or record format. Cross-endorsement is the primary bridging mechanism defined in this specification.
 
@@ -58,12 +60,14 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, and SHOULD in this document are to 
 
 ### 5.1. Conformance Classes
 
-This specification defines requirements for three conformance classes. An implementation MAY conform to more than one class.
+This specification defines requirements for three distinct classes of conformant implementation. Each class **MUST** satisfy the requirements marked as applicable to it throughout this specification.
 
-| Conformance Class | Description | Primary Sections |
-|---|---|---|
-| Identifier Controller | An entity that establishes and maintains cross-endorsements and (optionally) key alignment across identifiers it controls. | §9, §10, §11, §12, §13 |
-| Verifier / Resolver | An entity that resolves identifiers, traverses cross-endorsement references, validates integrity, and determines assurance level. | §9, §10, §14, §15 |
-| Certificate Authority | A CA that issues X.509 certificates participating in cross-endorsements, including certificates referencing DIDs. | §13, §20.1 |
+| **Conformance Class** | **Description** | **Primary Sections** |
+| --- | --- | --- |
+| **Identifier Controller** | An entity that establishes and maintains cross-endorsements and (optionally) key alignment across identifiers it controls. | §8, §9, §10, §11, §12 |
+| **Verifier / Resolver** | An entity that resolves identifiers, traverses cross-endorsement references, validates integrity, and determines assurance level. | §8, §9, §13, §14 |
+| **Certificate Authority** | A CA that issues X.509 certificates participating in cross-endorsements, including certificates referencing DIDs. | §12, §20.1 |
+
+An implementation **MAY** conform to more than one class. For example, an organization operating its own resolver while also controlling identifiers would conform to both the Identifier Controller and Verifier classes.
 
 ---
