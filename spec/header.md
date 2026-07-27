@@ -1,6 +1,6 @@
 # High Assurance Verifiable Identifiers (HAVID) Bridging Specification
 
-**Version:** Draft 07  
+**Version:** Draft 08
 **Authors:** Alex Tweeddale, Jesse Carter  
 **Contributors:** Markus Sabadello, Scott Perry, Drummond Reed, Tim Bouma
 
@@ -26,7 +26,7 @@ This specification defines a **linking mechanism**, not a trust framework. The t
 
 | Document Stage | Version | Reviewed by | Date | Status |
 |---|---|---|---|---|
-| Working Draft | 07 | High Assurance VID Taskforce Members | TBD | Ongoing |
+| Working Draft | 08 | High Assurance VID Taskforce Members | 27/07/2026 | Ongoing |
 | Working Group Approved Draft | v1.0 | Technology Stack Working Group | ... | ... |
 | ToIP Approved Draft | v1.0 | ToIP Steering Committee | ... | ... |
 
