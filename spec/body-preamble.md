@@ -22,11 +22,11 @@
 
 - **Verification Method:** As defined in [DID-CORE], a data structure in a DID Document describing a mechanism for proving control of a DID.
 
-- **Verifiable Identifier (VID):** A digital identifier whose control can be verified through cryptographic or integrity-protected mechanisms. In this specification, VIDs include DIDs, X.509 certificates, and DNS domain names (when integrity-protected). See [Section 10.4](#104.-dnssec-deployment-considerations) for the treatment of DNS domain names that lack integrity protection.
+- **Verifiable Identifier (VID):** A digital identifier whose control can be verified through cryptographic or integrity-protected mechanisms. In this specification, VIDs include DIDs, X.509 certificates, and DNS domain names (when integrity-protected). See [Section 10.4](#10.4.-dnssec-deployment-considerations) for the treatment of DNS domain names that lack integrity protection.
 
 - **Cross-Endorsement:** A verifiable, bi-directional linkage between identifiers established through explicit mutual references in each identifier's native metadata or record format. Cross-endorsement is the primary bridging mechanism defined in this specification.
 
-- **Key Alignment:** A supplementary assurance mechanism in which the same or verifiably linked cryptographic key material is demonstrated across multiple identifiers. Key alignment is OPTIONAL and subject to the normative requirements of [Section 9](#10.-key-alignment).
+- **Key Alignment:** A supplementary assurance mechanism in which the same or verifiably linked cryptographic key material is demonstrated across multiple identifiers. Key alignment is OPTIONAL and subject to the normative requirements of [Section 9](#9.-key-alignment).
 
 - **High Assurance Verifiable Identifier (HAVID):** A composite identity structure formed by linking two or more Verifiable Identifiers through cross-endorsement (and optionally key alignment), enabling strong, cross-system assurance of identity control and integrity.
 
