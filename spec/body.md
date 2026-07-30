@@ -306,7 +306,7 @@ The relationship between DNS and X.509 is the most established of the three pair
 
 ### 11.1. Cross-Endorsement: X.509 to DNS
 
-X.509 certificates reference DNS domains through the **Subject Alternative Name (SAN)** extension, as defined in [RFC 6125, Section 6.4.4]. The legacy practice of using the Common Name (CN) field ([RFC 5280, Section 4.1.2.6]) is deprecated for this purpose.
+X.509 certificates reference DNS domains through the **Subject Alternative Name (SAN)** extension, as defined in [RFC 6125], Section 6.4.4. The legacy practice of using the Common Name (CN) field ([RFC 5280], Section 4.1.2.6) is deprecated for this purpose.
 
 | Bridge Point | Field Type | DNS Domain |
 | --- | --- | --- |
@@ -927,6 +927,7 @@ Entities operating DID resolvers, DNS zones, or CAs SHOULD assess whether any pu
 ### Informative References
 
 - **[DID-CORE]** Manu Sporny; et al. *Decentralized Identifiers (DIDs) v1.0.* URL: https://www.w3.org/TR/did-core/
+- **[DID Extensions]** W3C Credentials Community Group. *DID Specification Registries: DID Extensions.* URL: https://www.w3.org/TR/did-extensions-properties/
 - **[RFC 1035]** P. Mockapetris. *Domain Names: Implementation and Specification.* URL: https://www.rfc-editor.org/rfc/rfc1035
 - **[RFC 4033]** R. Arends; et al. *DNS Security Introduction and Requirements.* URL: https://www.rfc-editor.org/rfc/rfc4033
 - **[RFC 5280]** D. Cooper; et al. *Internet X.509 Public Key Infrastructure Certificate and CRL Profile.* URL: https://www.rfc-editor.org/rfc/rfc5280
@@ -937,3 +938,21 @@ Entities operating DID resolvers, DNS zones, or CAs SHOULD assess whether any pu
 - **[High Assurance DIDs with DNS]** J. Carter. *High Assurance DIDs with DNS.* URL: https://identity.foundation/high-assurance-dids-with-dns/
 - **[DID Method Discovery using DNS]** A. Mayrhofer. *DID Method Discovery using DNS.* URL: https://datatracker.ietf.org/doc/draft-mayrhofer-did-dns/
 - **[did:webvh Specification]** S. Curran; et al. *The did:webvh DID Method v1.0.* URL: https://identity.foundation/didwebvh/
+
+<!-- The following link reference definitions are intentionally invisible in rendered output.
+They enable the bracket citations used throughout the body text (e.g. [RFC 5280], [DID-CORE],
+[High Assurance DIDs with DNS]) to resolve as working links. Do not remove. -->
+
+[DID-CORE]: https://www.w3.org/TR/did-core/
+[DID Extensions]: https://www.w3.org/TR/did-extensions-properties/
+[RFC 1035]: https://www.rfc-editor.org/rfc/rfc1035
+[RFC 4033]: https://www.rfc-editor.org/rfc/rfc4033
+[RFC 5280]: https://www.rfc-editor.org/rfc/rfc5280
+[RFC 6125]: https://www.rfc-editor.org/rfc/rfc6125
+[RFC 6698]: https://www.rfc-editor.org/rfc/rfc6698
+[RFC 7517]: https://www.rfc-editor.org/rfc/rfc7517
+[RFC 9108]: https://www.rfc-editor.org/rfc/rfc9108
+[RFC2119]: https://www.rfc-editor.org/rfc/rfc2119
+[RFC8174]: https://www.rfc-editor.org/rfc/rfc8174
+[High Assurance DIDs with DNS]: https://identity.foundation/high-assurance-dids-with-dns/
+[DID Method Discovery using DNS]: https://datatracker.ietf.org/doc/draft-mayrhofer-did-dns/
