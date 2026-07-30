@@ -64,9 +64,9 @@ This specification defines requirements for three distinct classes of conformant
 
 | **Conformance Class** | **Description** | **Primary Sections** |
 | --- | --- | --- |
-| **Identifier Controller** | An entity that establishes and maintains cross-endorsements and (optionally) key alignment across identifiers it controls. | §8, §9, §10, §11, §12 |
-| **Verifier / Resolver** | An entity that resolves identifiers, traverses cross-endorsement references, validates integrity, and determines assurance level. | §8, §9, §13, §14 |
-| **Certificate Authority** | A CA that issues X.509 certificates participating in cross-endorsements, including certificates referencing DIDs. | §12, §20.1 |
+| **Identifier Controller** | An entity that establishes and maintains cross-endorsements and (optionally) key alignment across identifiers it controls. | [§8](#8.-cross-endorsement), [§9](#9.-key-alignment), [§10](#10.-bridging-dids-and-dns), [§11](#11.-bridging-dns-and-x.509), [§12](#12.-bridging-dids-and-x.509) |
+| **Verifier / Resolver** | An entity that resolves identifiers, traverses cross-endorsement references, validates integrity, and determines assurance level. | [§8](#8.-cross-endorsement), [§9](#9.-key-alignment), [§13](#13.-resolution-and-dereferencing), [§14](#14.-validation-states-and-verifier-guidance) |
+| **Certificate Authority** | A CA that issues X.509 certificates participating in cross-endorsements, including certificates referencing DIDs. | [§12](#12.-bridging-dids-and-x.509), [§20.1](#20.1.-certificate-policy-requirements-for-cas-resolving-and-verifying-dids) |
 
 An implementation **MAY** conform to more than one class. For example, an organization operating its own resolver while also controlling identifiers would conform to both the Identifier Controller and Verifier classes.
 
